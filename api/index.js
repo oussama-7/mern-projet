@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoute from './routes/auth.js';
 import usersRoute from './routes/users.js';
+import booksRoute from "./routes/books.js";
+import chaptersRoute from "./routes/chapters.js";
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -34,6 +36,8 @@ app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/seed', seedRouter);
 app.use('/api/products', productRouter);
+app.use("/api/books", booksRoute);
+app.use("/api/chapters", chaptersRoute);
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || 'Something went wrong!';
@@ -54,4 +58,9 @@ const port = process.env.PORT || 8800;
 app.listen(port, () => {
   connect();
   console.log(`serve at http://localhost:${port}`);
+});
+
+app.listen(7000, () => {
+  connect()
+  console.log("connected to back end.");
 });
