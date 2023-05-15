@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import './login.css';
 
@@ -9,9 +9,14 @@ const Login = () => {
     username: undefined,
     password: undefined,
   });
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
 
   const { loading, error, dispatch } = useContext(AuthContext);
-
+  // const { search } = useLocation();
+  // const redirectInUrl = new URLSearchParams(search).get('redirect');
+  // const redirect = redirectInUrl ? redirectInUrl : '/';
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,8 +31,11 @@ const Login = () => {
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });
 
       localStorage.setItem('state.user', JSON.stringify(res.data));
-
-      navigate('/cart');
+      if (redirect === '/shipping') {
+        navigate('/shipping'); // Redirect to shipping page if the redirect is '/shipping'
+      } else {
+        navigate(-1); // Redirect to the previous page
+      }
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data });
     }
