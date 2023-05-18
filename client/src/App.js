@@ -6,8 +6,10 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import ProductScreen from './components/screens/ProductScreen';
 import CartScreen from './components/screens/CartScreen';
-import SigninScreen from './components/screens/SigninScreen';
+
 import ShippingAddressScreen from './components/screens/ShippingAddressScreen';
+import PaymentMethodScreen from './components/screens/PaymentMethodScreen';
+import PlaceOrderScreen from './components/screens/PlaceOrderScreen';
 
 function App() {
   return (
@@ -17,11 +19,13 @@ function App() {
         <Route path="/home1" element={<Home1 />} />
         <Route path="/product/:slug" element={<ProductScreen />} />
         <Route path="/cart" element={<CartScreen />} />
-        <Route path="/signin" element={<SigninScreen />} />
+        <Route path="/cart" element={<CartScreen />} />
         <Route path="/homescreen" element={<HomeScreen />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
+        <Route path="/shipping" element={<ShippingAddressScreen />} />
+        <Route path="/payment" element={<PaymentMethodScreen />} />
+        <Route path="/placeorder" element={<PlaceOrderScreen />} />
       </Routes>
     </BrowserRouter>
   );

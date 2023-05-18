@@ -6,14 +6,14 @@ import Product from '../Product';
 import { Helmet } from 'react-helmet-async';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import LoadingBox from '../MessageBox';
+import LoadingBox from '../LoadingBox';
 import MessageBox from '../MessageBox';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import Badge from 'react-bootstrap/Badge';
-import Nav from 'react-bootstrap/Nav';
 import { Store } from '../Store';
+import Nav from './Nav';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -55,15 +55,7 @@ function HomeScreen() {
 
   return (
     <div className="d-flex flex-column site-container">
-      <header>
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <LinkContainer to="/">
-              <Navbar.Brand>Boutique</Navbar.Brand>
-            </LinkContainer>
-          </Container>
-        </Navbar>
-      </header>
+      <Nav />
 
       <div>
         <Helmet>

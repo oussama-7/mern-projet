@@ -11,15 +11,17 @@ import Nav from 'react-bootstrap/Nav';
 
 const Navi = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { user, dispatch } = useContext(AuthContext);
+  const { state } = useContext(Store);
   const { cart } = state;
   const {
     cart: { cartItems },
   } = state;
   const signoutHandler = () => {
-    ctxDispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'LOGOUT' });
     localStorage.removeItem('user');
+    localStorage.removeItem('paymentMethod');
+    localStorage.removeItem('shippingAddress');
   };
   return (
     <header>
@@ -30,16 +32,23 @@ const Navi = () => {
           </LinkContainer>
 
           <Nav className="me-auto">
-            <Link to="/cart" className="nav-link">
-              Cart
-              {cart.cartItems.length > 0 && (
-                <Badge pill bg="danger">
-                  {/* {cart.cartItems.length} */}
-                  {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                </Badge>
-              )}
-            </Link>
-
+            {user ? (
+              <>
+                <Link to="/cart" className="nav-link">
+                  Cart
+                  {cart.cartItems.length > 0 && (
+                    <Badge pill bg="danger">
+                      {/* {cart.cartItems.length} */}
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Badge>
+                  )}
+                </Link>
+              </>
+            ) : (
+              <Link to="/cart" className="nav-link">
+                Cart
+              </Link>
+            )}
             {user !== null ? (
               <NavDropdown title={user.username} id="basic-nav-dropdown">
                 <LinkContainer to="/profile">
