@@ -7,14 +7,14 @@ import booksRoute from './routes/books.js';
 import chaptersRoute from './routes/chapters.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import bodyParser from 'body-parser';
-import data from './data.js';
 import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
+import orderRouter from './routes/orderRoutes.js';
 
 const app = express();
 
 dotenv.config();
+
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -36,6 +36,7 @@ app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/seed', seedRouter);
 app.use('/api/products', productRouter);
+app.use('/api/orders', orderRouter);
 app.use('/api/books', booksRoute);
 app.use('/api/chapters', chaptersRoute);
 app.use((err, req, res, next) => {

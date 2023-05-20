@@ -11,6 +11,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 // import createError from '../error.js';
 import LoadingBox from '../LoadingBox';
+import { AuthContext } from '../../context/AuthContext';
+import Nav from './Nav';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -19,7 +21,7 @@ const reducer = (state, action) => {
     case 'CREATE_SUCCESS':
       return { ...state, loading: false };
     case 'CREATE_FAIL':
-      return { ...state, loading: false };
+      return { ...state, loading: false, error: true };
     default:
       return state;
   }
@@ -28,11 +30,12 @@ const reducer = (state, action) => {
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
   });
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, user } = state;
+  const { cart } = state;
+  const { user } = useContext(AuthContext);
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
   cart.itemsPrice = round2(
@@ -46,31 +49,22 @@ export default function PlaceOrderScreen() {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
 
-      const { data } = await Axios.post(
-        '/api/orders',
-        {
-          orderItems: cart.cartItems,
-          shippingAddress: cart.shippingAddress,
-          paymentMethod: cart.paymentMethod,
-          itemsPrice: cart.itemsPrice,
-          shippingPrice: cart.shippingPrice,
-          taxPrice: cart.taxPrice,
-          totalPrice: cart.totalPrice,
-        }
-        // {
-        //   headers: {
-        //     authorization: `Bearer ${user.token}`,
-        //   },
-        // }
-      );
+      const { data } = await Axios.post('http://localhost:8800/api/orders', {
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+        // user: user._id,
+      });
       ctxDispatch({ type: 'CART_CLEAR' });
       dispatch({ type: 'CREATE_SUCCESS' });
       localStorage.removeItem('cartItems');
       navigate(`/order/${data.order._id}`);
     } catch (err) {
       dispatch({ type: 'CREATE_FAIL' });
-
-      console.log('error');
     }
   };
 
@@ -81,6 +75,7 @@ export default function PlaceOrderScreen() {
   }, [cart, navigate]);
   return (
     <div>
+      <Nav />
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <Helmet>
         <title>Preview Order</title>
