@@ -31,7 +31,9 @@ const Header = () => {
         </div>
         <div className="headerListItem">
           {/* <FontAwesomeIcon icon={faBed} /> */}
-          <span>Stage</span>
+          <a href="/Stage1">
+            <span>Stage</span>
+          </a>
         </div>
         <div className="headerListItem">
           <Link to="/homescreen">Shop</Link>
