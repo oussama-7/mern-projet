@@ -32,6 +32,10 @@ mongoose.connection.on('disconnected', () => {
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+
+app.get('/api/keys/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/seed', seedRouter);

@@ -9,11 +9,10 @@ import Register from './pages/register/Register';
 import ProductScreen from './components/screens/ProductScreen';
 import CartScreen from './components/screens/CartScreen';
 
-
-
 import ShippingAddressScreen from './components/screens/ShippingAddressScreen';
 import PaymentMethodScreen from './components/screens/PaymentMethodScreen';
 import PlaceOrderScreen from './components/screens/PlaceOrderScreen';
+import OrderScreen from './components/screens/OrderScreen';
 
 function App() {
   return (
@@ -32,6 +31,7 @@ function App() {
         <Route path="/shipping" element={<ShippingAddressScreen />} />
         <Route path="/payment" element={<PaymentMethodScreen />} />
         <Route path="/placeorder" element={<PlaceOrderScreen />} />
+        <Route path="/order/:id" element={<OrderScreen />} />
       </Routes>
     </BrowserRouter>
   );
