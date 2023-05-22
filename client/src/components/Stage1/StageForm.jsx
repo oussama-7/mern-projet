@@ -27,6 +27,13 @@ const StageForm = () => {
                     name="specialite"
                     required
                 />
+                <label htmlFor="Mail">Mail :</label>
+                <input
+                    type="text"
+                    id="Mail"
+                    name="Mail"
+                    required
+                />
 
                 <label htmlFor="nome">Nom Complet de l'étudiant encadré :</label>
                 <input
@@ -49,6 +56,13 @@ const StageForm = () => {
                     type="text"
                     id="niveau"
                     name="niveau"
+                    required
+                />
+                <label htmlFor="Email">Email :</label>
+                <input
+                    type="text"
+                    id="Email"
+                    name="Email"
                     required
                 />
 

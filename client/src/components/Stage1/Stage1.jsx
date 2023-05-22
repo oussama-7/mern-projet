@@ -9,7 +9,7 @@ function Stage1() {
                 <a href="/StageForm" className="button primary">
                     Créer une session
                 </a>
-                <a href="Etudiant.html" className="button secondary">
+                <a href="/Pin" className="button secondary">
                     Accéder à une session
                 </a>
             </div>

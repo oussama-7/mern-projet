@@ -5,6 +5,7 @@ import HomeScreen from './components/screens/HomeScreen';
 import Login from './pages/login/Login';
 import Stage1 from './components/Stage1/Stage1';
 import StageForm from './components/Stage1/StageForm';
+import Pin from './components/Stage1/Pin';
 import Register from './pages/register/Register';
 import ProductScreen from './components/screens/ProductScreen';
 import CartScreen from './components/screens/CartScreen';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/homescreen" element={<HomeScreen />} />
         <Route path="/Stage1" element={<Stage1 />} />
         <Route path="/StageForm" element={<StageForm />} />
+        <Route path="/Pin" element={<Pin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shipping" element={<ShippingAddressScreen />} />
