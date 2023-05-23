@@ -2,6 +2,8 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 // import { verifyToken } from '../utils/verifyToken.js';
+import User from '../models/User.js';
+import { verifyToken } from '../utils/verifyToken.js';
 
 const orderRouter = express.Router();
 orderRouter.get(
@@ -14,7 +16,6 @@ orderRouter.get(
 
 orderRouter.post(
   '/',
-
   expressAsyncHandler(async (req, res) => {
     const newOrder = new Order({
       orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
@@ -24,11 +25,19 @@ orderRouter.post(
       shippingPrice: req.body.shippingPrice,
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
-      //   user: req.user._id,
+      // user: req.body._id,
     });
 
     const order = await newOrder.save();
     res.status(201).send({ message: 'New Order Created', order });
+  })
+);
+
+orderRouter.get(
+  '/mine',
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.body._id });
+    res.send(orders);
   })
 );
 orderRouter.get(

@@ -8,6 +8,10 @@ import {
 import { verifyAdmin, verifyToken, verifyUser } from '../utils/verifyToken.js';
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.send('hello, this is users endpoint?');
+});
+
 // router.get("/checkauthentication",verifyToken,(req,res,next)=>{
 //     res.send("hello user you are logged in.")
 // });
@@ -26,8 +30,5 @@ router.delete('/:id', verifyUser, deleteUser);
 router.get('/:id', verifyUser, findUser);
 //GET ALL
 router.get('/', verifyAdmin, findUsers);
-router.get('/', (req, res) => {
-  res.send('hello, this is users endpoint?');
-});
 
 export default router;
